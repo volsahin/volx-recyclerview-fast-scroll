@@ -61,7 +61,7 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
                 .setBackgroundColor(Color.BLACK) // the color of right bar
                 .setTextColor(Color.WHITE) // the color of right bar letters
                 .setBarWidth(24) // the width of right bar in dp
-                .setBarHeight(ViewGroup.LayoutParams.MATCH_PARENT) // the height of right bar in dp
+                .setBarHeightRatio(1f) // the height of right bar between 0 and 1 according to screen height
                 .setTextSize(18) // the size of the letters in right bar
                 .setMiddleTextSize(16) // the size of the letter in center circle
                 .setMiddleLayoutSize(48) // the size of the center circle in dp
@@ -75,6 +75,17 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
                 .setDelayMillis(3000) // the amount of time in ms that closes right bar if there are no interaction
                 .build();
 
+```
+If you want to make volx invisible and remove it's listeners you can call function with your object:
+
+```java
+	volx.setInactive(true);
+```
+Later you can activate volx again:
+
+```java
+	if (volx.isInactive())
+            volx.setInactive(false);
 ```
 ## Download
 
