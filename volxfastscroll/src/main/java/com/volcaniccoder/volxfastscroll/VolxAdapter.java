@@ -65,7 +65,7 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
 
         holder.charText.setBackgroundColor(Color.TRANSPARENT);
 
-        holder.charText.setText(mDataset.get(position).getCharacter().toString());
+        holder.charText.setText(mDataset.get(position).getCharacter().toString().toUpperCase());
 
 
         if (mDataset.get(position).isBlink()) {
