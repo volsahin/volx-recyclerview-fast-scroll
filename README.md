@@ -55,17 +55,23 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
 ```java
 
         new Volx.Builder()
-                .setUserRecyclerView(mRecyclerView) // the recycler view that needs fast scrolling
-                .setParentLayout(parentLayout) // the parent frame layout
+                .setUserRecyclerView(mRecyclerView)
+                .setParentLayout(parentLayout)
                 .setActiveColor(Color.CYAN) // the lightened color of right bar
                 .setBackgroundColor(Color.BLACK) // the color of right bar
                 .setTextColor(Color.WHITE) // the color of right bar letters
                 .setBarWidth(24) // the width of right bar in dp
+                .setBarHeight(ViewGroup.LayoutParams.MATCH_PARENT) // the height of right bar in dp
                 .setTextSize(18) // the size of the letters in right bar
                 .setMiddleTextSize(16) // the size of the letter in center circle
                 .setMiddleLayoutSize(48) // the size of the center circle in dp
-                .setMiddleBackgroundColor(Color.rgb(67,67,67)) // the color of the center circle
+                .setMiddleBackgroundColor(Color.rgb(67, 67, 67)) // the color of the center circle
                 .setMiddleTextColor(Color.WHITE)  // the color of the letter in center circle
+                .setMiddleStrokeWidth(4) // the width of center circle stroke in dp
+                .setMiddleStrokeColor(Color.BLACK) // the color of right bar stroke
+                .setRightStrokeWidth(3) // the width of right bar stroke in dp
+                .setRightStrokeColor(Color.rgb(204, 204, 204)) // the color of middle circle stroke
+                .setMinItem(0) // the min amount of item required to show right bar
                 .setDelayMillis(3000) // the amount of time in ms that closes right bar if there are no interaction
                 .build();
 
@@ -91,7 +97,7 @@ Add it in your root build.gradle at the end of repositories:
 ```groovy
 
 	dependencies {
-		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:-SNAPSHOT'
+		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0'
 	}
   
 ```
