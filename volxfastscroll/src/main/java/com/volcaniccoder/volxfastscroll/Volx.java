@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -119,6 +120,7 @@ public class Volx implements Runnable {
 
         if (!(userRecyclerView.getAdapter() instanceof IVolxAdapter)) {
             Toast.makeText(context, "Please implement IVolxAdapter in your own adapter", Toast.LENGTH_SHORT).show();
+            Log.w("VOLX", "Please implement IVolxAdapter in your own adapter , you need to initialize the adapter before initializing Volx");
             return;
         }
 
@@ -334,6 +336,10 @@ public class Volx implements Runnable {
     }
 
     public void setInactive(boolean state) {
+
+        if (scrollListener == null)
+            return;
+
         isInactive = state;
         if (state) {
             setViewsVisibility(false);
@@ -351,7 +357,7 @@ public class Volx implements Runnable {
         rightBarParams.height = (int) (height * barHeightRatio);
         itemHeight = (int) (height * barHeightRatio - utils.dpToPx(16)) / (charList.size());
 
-        mAdapter = new VolxAdapter(charList, new VolxAdapterFeatures(itemHeight, textSize, textColor, activeColor));
+        mAdapter = new VolxAdapter(charList, new VolxAdapterFeatures(itemHeight, utils.pxToDp(itemHeight), textSize, textColor, activeColor));
         mRecyclerView.setAdapter(mAdapter);
     }
 
