@@ -15,7 +15,7 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
 
     private List<VolxCharModel> mDataset;
     private VolxAdapterFeatures mFeatures;
-    private VolxUtils utils;
+    private float defaultTextSize;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -39,7 +39,7 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
             charText.setGravity(Gravity.CENTER);
 
             if (mFeatures.getTextSize() == 0)
-                charText.setTextSize(utils.pxToDp(utils.dpToPx(mFeatures.getBarWidth()) - utils.dpToPx(8)));
+                charText.setTextSize(defaultTextSize);
             else
                 charText.setTextSize(mFeatures.getTextSize());
 
@@ -54,7 +54,7 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
     public VolxAdapter(List<VolxCharModel> mDataset, VolxUtils utils, VolxAdapterFeatures mFeatures) {
         this.mFeatures = mFeatures;
         this.mDataset = mDataset;
-        this.utils = utils;
+        this.defaultTextSize = (float)(utils.pxToDp(utils.dpToPx(mFeatures.getBarWidth()) - utils.dpToPx(8)))* mFeatures.getScale();
     }
 
     @Override

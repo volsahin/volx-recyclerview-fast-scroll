@@ -3,13 +3,15 @@ package com.volcaniccoder.volxfastscroll;
 public class VolxAdapterFeatures {
 
     private int paramsHeight;
+    private float scale;
     private int barWidth;
     private int textSize;
     private int textColor;
     private int activeColor;
 
-    public VolxAdapterFeatures(int paramsHeight, int barWidth, int textSize, int textColor, int activeColor) {
+    public VolxAdapterFeatures(int paramsHeight, float scale ,int barWidth, int textSize, int textColor, int activeColor) {
         this.paramsHeight = paramsHeight;
+        this.scale = scale;
         this.barWidth = barWidth;
         this.textSize = textSize;
         this.textColor = textColor;
@@ -34,5 +36,9 @@ public class VolxAdapterFeatures {
 
     public int getBarWidth() {
         return barWidth;
+    }
+
+    public float getScale() {
+        return scale;
     }
 }
