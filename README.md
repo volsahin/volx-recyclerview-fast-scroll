@@ -37,7 +37,7 @@ public class UserModel {
 
 ```
 
-In your activity/fragment or whereever you have reference of your  parent frame layout and your recyclerview:
+In your activity/fragment or wherever you have reference of your  parent frame layout and your recyclerview:
 
 ```java
 
@@ -47,6 +47,9 @@ In your activity/fragment or whereever you have reference of your  parent frame 
                 .build();
 
 ```
+
+Don't forget to sort your list before building Volx
+
     
 ### More On Customization
 
@@ -62,7 +65,7 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
                 .setTextColor(Color.WHITE) // the color of right bar letters
                 .setBarWidth(24) // the width of right bar in dp
                 .setBarHeightRatio(1f) // the height of right bar between 0 and 1 according to screen height
-                .setTextSize(18) // the size of the letters in right bar
+                .setTextSize(0) // the size of the letters in right bar , default zero handles it nicely , specific values are also ok
                 .setMiddleTextSize(16) // the size of the letter in center circle
                 .setMiddleLayoutSize(48) // the size of the center circle in dp
                 .setMiddleBackgroundColor(Color.rgb(67, 67, 67)) // the color of the center circle
@@ -108,7 +111,7 @@ Add it in your root build.gradle at the end of repositories:
 ```groovy
 
 	dependencies {
-		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.1'
+		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.2'
 	}
   
 ```
