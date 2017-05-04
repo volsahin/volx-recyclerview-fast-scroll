@@ -15,8 +15,9 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
 
     private List<VolxCharModel> mDataset;
     private VolxAdapterFeatures mFeatures;
+    private VolxUtils utils;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView charText;
         private LinearLayout itemParent;
@@ -34,9 +35,14 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
 
             charText = new TextView(v.getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                    (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);//81
             charText.setGravity(Gravity.CENTER);
-            charText.setTextSize(mFeatures.getTextSize());
+
+            if (mFeatures.getTextSize() == 0)
+                charText.setTextSize(utils.pxToDp(utils.dpToPx(mFeatures.getBarWidth()) - utils.dpToPx(8)));
+            else
+                charText.setTextSize(mFeatures.getTextSize());
+
             charText.setTextColor(mFeatures.getTextColor());
             charText.setBackgroundColor(Color.TRANSPARENT);
 
@@ -45,10 +51,10 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
         }
     }
 
-    public VolxAdapter(List<VolxCharModel> mDataset, VolxAdapterFeatures mFeatures) {
+    public VolxAdapter(List<VolxCharModel> mDataset, VolxUtils utils, VolxAdapterFeatures mFeatures) {
         this.mFeatures = mFeatures;
         this.mDataset = mDataset;
-
+        this.utils = utils;
     }
 
     @Override

@@ -145,8 +145,8 @@ public class Volx implements Runnable {
                     field.setAccessible(true);
 
                     try {
-                        allStringList.add(field.get(obj).toString());
-                        Character c = field.get(obj).toString().charAt(0);
+                        allStringList.add(field.get(obj).toString().toUpperCase());
+                        Character c = field.get(obj).toString().toUpperCase().charAt(0);
 
                         if (!charArr.contains(c)) {
                             charArr.add(c);
@@ -305,7 +305,7 @@ public class Volx implements Runnable {
         utils.changeDrawableColor(rightIndicatorLayout, backgroundColor, rightStrokeColor, rightStrokeWidth);
 
         parentLayout.addView(rightIndicatorLayout, rightBarParams);
-
+        int tt = utils.pxToDp(54);
         // Adding recycler view into the right side layout
 
         FrameLayout.LayoutParams listParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -357,7 +357,7 @@ public class Volx implements Runnable {
         rightBarParams.height = (int) (height * barHeightRatio);
         itemHeight = (int) (height * barHeightRatio - utils.dpToPx(16)) / (charList.size());
 
-        mAdapter = new VolxAdapter(charList, new VolxAdapterFeatures(itemHeight, utils.pxToDp(itemHeight), textSize, textColor, activeColor));
+        mAdapter = new VolxAdapter(charList, utils, new VolxAdapterFeatures(itemHeight, barWidth, textSize, textColor, activeColor));
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -423,7 +423,7 @@ public class Volx implements Runnable {
 
         private int backgroundColor = Color.BLACK;
 
-        private int textSize = 18;
+        private int textSize = 0;
 
         private int textColor = Color.WHITE;
 
