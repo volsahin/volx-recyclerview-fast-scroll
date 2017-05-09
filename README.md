@@ -57,7 +57,7 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
 
 ```java
 
-        new Volx.Builder()
+	new Volx.Builder()
                 .setUserRecyclerView(mRecyclerView)
                 .setParentLayout(parentLayout)
                 .setActiveColor(Color.CYAN) // the lightened color of right bar
@@ -65,7 +65,7 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
                 .setTextColor(Color.WHITE) // the color of right bar letters
                 .setBarWidth(24) // the width of right bar in dp
                 .setBarHeightRatio(1f) // the height of right bar between 0 and 1 according to screen height
-                .setTextSize(0) // the size of the letters in right bar , default zero handles it nicely , specific values are also ok
+                .setTextSize(0) // the size of the letters in right bar , default zero handles it nicely , specific values are optional
                 .setMiddleTextSize(16) // the size of the letter in center circle
                 .setMiddleLayoutSize(48) // the size of the center circle in dp
                 .setMiddleBackgroundColor(Color.rgb(67, 67, 67)) // the color of the center circle
@@ -75,7 +75,7 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
                 .setRightStrokeWidth(3) // the width of right bar stroke in dp
                 .setRightStrokeColor(Color.rgb(204, 204, 204)) // the color of middle circle stroke
                 .setMinItem(0) // the min amount of item required to show right bar
-                .setDelayMillis(3000) // the amount of time in ms that closes right bar if there are no interaction
+                .setDelayMillis(3000) // the amount of time in ms that closes right bar if no interaction , if negative it never closes
                 .build();
 
 ```
@@ -111,7 +111,7 @@ Add it in your root build.gradle at the end of repositories:
 ```groovy
 
 	dependencies {
-		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.3'
+		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.4'
 	}
   
 ```
