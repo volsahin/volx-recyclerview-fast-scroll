@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -119,7 +118,6 @@ public class Volx implements Runnable {
         utils = new VolxUtils(context);
 
         if (!(userRecyclerView.getAdapter() instanceof IVolxAdapter)) {
-            Toast.makeText(context, "Please implement IVolxAdapter in your own adapter", Toast.LENGTH_SHORT).show();
             Log.w("VOLX", "Please implement IVolxAdapter in your own adapter , you need to initialize the adapter before initializing Volx");
             return;
         }
@@ -261,14 +259,17 @@ public class Volx implements Runnable {
     }
 
     private void removeViewsWithDelay() {
-        mRecyclerView.postDelayed(Volx.this, delayMillis);
+        if (delayMillis > 0)
+            mRecyclerView.postDelayed(Volx.this, delayMillis);
     }
 
     public void setViewsVisibility(boolean isShow) {
 
         if (!isShow) {
-            rightIndicatorLayout.setVisibility(View.GONE);
             middleText.setVisibility(View.GONE);
+            if (delayMillis < 0)
+                return;
+            rightIndicatorLayout.setVisibility(View.GONE);
             isTouched = false;
             return;
         }

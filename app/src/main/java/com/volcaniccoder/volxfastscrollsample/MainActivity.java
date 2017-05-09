@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTextColor(Color.WHITE) // the color of right bar letters
                 .setBarWidth(24) // the width of right bar in dp
                 .setBarHeightRatio(1f) // the height of right bar between 0 and 1 according to screen height
-                .setTextSize(0) // the size of the letters in right bar , default zero handles it nicely , specific values are also ok
+                .setTextSize(0) // the size of the letters in right bar , default zero handles it nicely , specific values are optional
                 .setMiddleTextSize(16) // the size of the letter in center circle
                 .setMiddleLayoutSize(48) // the size of the center circle in dp
                 .setMiddleBackgroundColor(Color.rgb(67, 67, 67)) // the color of the center circle
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 .setRightStrokeWidth(3) // the width of right bar stroke in dp
                 .setRightStrokeColor(Color.rgb(204, 204, 204)) // the color of middle circle stroke
                 .setMinItem(0) // the min amount of item required to show right bar
-                .setDelayMillis(3000) // the amount of time in ms that closes right bar if there are no interaction
+                .setDelayMillis(3000) // the amount of time in ms that closes right bar if there are no interaction , if negative it never closes
                 .build();
                 */
 
@@ -97,3 +97,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+
+
+
