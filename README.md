@@ -4,7 +4,10 @@
 An easy to use implementation for fast scroll recyclerview
 
 
-![alt tag](http://i.imgur.com/yQat7Nj.gif)
+![alt tag](http://i.imgur.com/dYKtXPp.gif)
+![alt tag](http://i.imgur.com/8owHHdd.png?1)
+
+
 ## Usage
 
 ### Minimal working example
@@ -65,7 +68,7 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
                 .setTextColor(Color.WHITE) // the color of right bar letters
                 .setBarWidth(24) // the width of right bar in dp
                 .setBarHeightRatio(1f) // the height of right bar between 0 and 1 according to screen height
-                .setTextSize(0) // the size of the letters in right bar , default zero handles it nicely , specific values are optional
+                .setTextSize(Volx.FIT_NICELY) // the size of letters in right bar, FIT_NICELY handles it well , other values are also ok
                 .setMiddleTextSize(16) // the size of the letter in center circle
                 .setMiddleLayoutSize(48) // the size of the center circle in dp
                 .setMiddleBackgroundColor(Color.rgb(67, 67, 67)) // the color of the center circle
@@ -75,11 +78,11 @@ If you want to customize colors, text sizes and layout sizes you can call it lik
                 .setRightStrokeWidth(3) // the width of right bar stroke in dp
                 .setRightStrokeColor(Color.rgb(204, 204, 204)) // the color of middle circle stroke
                 .setMinItem(0) // the min amount of item required to show right bar
-                .setDelayMillis(3000) // the amount of time in ms that closes right bar if no interaction , if negative it never closes
+                .setDelayMillis(3000) // the amount of time if there is no interaction on right bar, Volx.NEVER_CLOSE for never close
                 .build();
 
 ```
-If you want to make volx invisible and remove it's listeners you can call function with your object:
+If you want to make volx invisible and remove it's listeners you can call method with your object:
 
 ```java
 	volx.setInactive(true);
@@ -90,6 +93,20 @@ Later you can activate volx again:
 	if (volx.isInactive())
             volx.setInactive(false);
 ```
+
+If your data updated , sort your data again and call the notifyValueDataChanged method:
+
+```java
+	volx.notifyValueDataChanged();
+```
+## Apps in volx-fast-scroll use
+
+### General Mobile Music Player
+
+<img src="http://lh3.googleusercontent.com/EUBDIUSX9UJeqZA1yCTlfG5dJTUmw1pRKUtJsxH488p9kmBdnE1eI4jh5NbcnZN97g=w300-rw" 
+height="128" width="128">
+
+A nice featured cool music player from General Mobile. You can download it from <a href="https://play.google.com/store/apps/details?id=com.generalmobile.app.musicplayer">here</a>
 ## Download
 
 ### Step 1. Add the JitPack repository to your build file
@@ -111,7 +128,7 @@ Add it in your root build.gradle at the end of repositories:
 ```groovy
 
 	dependencies {
-		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.4'
+		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.5'
 	}
   
 ```
