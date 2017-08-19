@@ -16,16 +16,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String[] common = {"the", "of", "and", "a", "to", "in", "is", "you", "that", "it", "he", "was", "for", "on", "are", "as", "with", "his", "they", "I", "at", "be", "this", "have", "from", "or", "one", "had", "by", "word", "but", "not", "what", "all", "were", "we", "when", "your", "can", "said", "there", "use", "an", "each", "which", "she", "do", "how", "their", "if", "will", "up", "other", "about", "out", "many", "then", "them", "these", "so", "some", "her", "would", "make", "like", "him", "into", "time", "has", "look", "two", "more", "write", "go", "see", "number", "no", "way", "could", "people", "my", "than", "first", "water", "been", "call", "who", "oil", "its", "now", "find", "long", "down", "day", "did", "get", "come", "made", "may", "part"};
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private List<UserModel> model = new ArrayList<>();
-
     private FrameLayout parentLayout;
-
-    private final String[] common = {"the", "of", "and", "a", "to", "in", "is", "you", "that", "it", "he", "was", "for", "on", "are", "as", "with", "his", "they", "I", "at", "be", "this", "have", "from", "or", "one", "had", "by", "word", "but", "not", "what", "all", "were", "we", "when", "your", "can", "said", "there", "use", "an", "each", "which", "she", "do", "how", "their", "if", "will", "up", "other", "about", "out", "many", "then", "them", "these", "so", "some", "her", "would", "make", "like", "him", "into", "time", "has", "look", "two", "more", "write", "go", "see", "number", "no", "way", "could", "people", "my", "than", "first", "water", "been", "call", "who", "oil", "its", "now", "find", "long", "down", "day", "did", "get", "come", "made", "may", "part"};
-
     private List<String> stringList;
 
     private Volx volx;
@@ -76,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTextColor(Color.WHITE) // the color of right bar letters
                 .setBarWidth(24) // the width of right bar in dp
                 .setBarHeightRatio(1f) // the height of right bar between 0 and 1 according to screen height
-                .setTextSize(0) // the size of the letters in right bar , default zero handles it nicely , specific values are optional
+                .setTextSize(Volx.FIT_NICELY) // the size of the letters in right bar , FIT_NICELY handles it good , specific values are optional
                 .setMiddleTextSize(16) // the size of the letter in center circle
                 .setMiddleLayoutSize(48) // the size of the center circle in dp
                 .setMiddleBackgroundColor(Color.rgb(67, 67, 67)) // the color of the center circle
@@ -86,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 .setRightStrokeWidth(3) // the width of right bar stroke in dp
                 .setRightStrokeColor(Color.rgb(204, 204, 204)) // the color of middle circle stroke
                 .setMinItem(0) // the min amount of item required to show right bar
-                .setDelayMillis(3000) // the amount of time in ms that closes right bar if there are no interaction , if negative it never closes
+                .setDelayMillis(3000) // the amount of time in ms that closes right bar if there are no interaction , Volx.NEVER_CLOSE never closes
                 .build();
                 */
 

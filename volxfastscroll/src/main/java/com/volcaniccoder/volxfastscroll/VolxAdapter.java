@@ -17,40 +17,6 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
     private VolxAdapterFeatures mFeatures;
     private float defaultTextSize;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView charText;
-        private LinearLayout itemParent;
-
-        public ViewHolder(View v, VolxAdapterFeatures mFeatures) {
-            super(v);
-
-            LinearLayout.LayoutParams parentParams = new LinearLayout.LayoutParams
-                    (ViewGroup.LayoutParams.MATCH_PARENT, mFeatures.getParamsHeight());
-            parentParams.setMargins(4, 0, 4, 0);
-
-            itemParent = (LinearLayout) v.findViewById(R.id.item_parent);
-            itemParent.setBackgroundColor(Color.TRANSPARENT);
-            itemParent.setLayoutParams(parentParams);
-
-            charText = new TextView(v.getContext());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                    (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            charText.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-
-            if (mFeatures.getTextSize() == 0)
-                charText.setTextSize(defaultTextSize);
-            else
-                charText.setTextSize(mFeatures.getTextSize());
-
-            charText.setTextColor(mFeatures.getTextColor());
-            charText.setBackgroundColor(Color.TRANSPARENT);
-
-            itemParent.addView(charText, layoutParams);
-
-        }
-    }
-
     public VolxAdapter(List<VolxCharModel> mDataset, VolxUtils utils, VolxAdapterFeatures mFeatures) {
         this.mFeatures = mFeatures;
         this.mDataset = mDataset;
@@ -97,5 +63,39 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView charText;
+        private LinearLayout itemParent;
+
+        public ViewHolder(View v, VolxAdapterFeatures mFeatures) {
+            super(v);
+
+            LinearLayout.LayoutParams parentParams = new LinearLayout.LayoutParams
+                    (ViewGroup.LayoutParams.MATCH_PARENT, mFeatures.getParamsHeight());
+            parentParams.setMargins(4, 0, 4, 0);
+
+            itemParent = (LinearLayout) v.findViewById(R.id.item_parent);
+            itemParent.setBackgroundColor(Color.TRANSPARENT);
+            itemParent.setLayoutParams(parentParams);
+
+            charText = new TextView(v.getContext());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
+                    (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            charText.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+
+            if (mFeatures.getTextSize() == Volx.FIT_NICELY)
+                charText.setTextSize(defaultTextSize);
+            else
+                charText.setTextSize(mFeatures.getTextSize());
+
+            charText.setTextColor(mFeatures.getTextColor());
+            charText.setBackgroundColor(Color.TRANSPARENT);
+
+            itemParent.addView(charText, layoutParams);
+
+        }
     }
 }

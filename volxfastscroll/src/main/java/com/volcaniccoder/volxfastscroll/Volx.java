@@ -1,5 +1,6 @@
 package com.volcaniccoder.volxfastscroll;
 
+import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -24,70 +25,42 @@ import static android.view.View.VISIBLE;
 
 public class Volx implements Runnable {
 
+    public static final int FIT_NICELY = 0;
+    public static final int NEVER_CLOSE = -1;
     private Context context;
-
     private int activeColor;
-
     private int backgroundColor;
-
     private int textSize;
-
     private int textColor;
-
     private int barWidth; //dp
-
     private float barHeightRatio;
-
     private int middleTextSize;
-
     private int middleLayoutSize; //dp
-
     private int middleBackgroundColor;
-
     private int middleStrokeColor;
-
     private int rightStrokeColor;
-
     private int middleTextColor;
-
     private int middleStrokeWidth; //dp
-
     private int rightStrokeWidth; //dp
-
     private int delayMillis;
-
     private int minItem;
-
     private FrameLayout parentLayout;
-
     private RecyclerView userRecyclerView; //adapter must be IVolxAdapter
-
     private RecyclerView mRecyclerView;
-
     private RecyclerView.Adapter mAdapter;
-
     private RecyclerView.OnScrollListener scrollListener;
-
     private TextView middleText;
-
     private List<String> allStringList = new ArrayList<>();
     private List<Character> charArr = new ArrayList<>();
     private List<VolxCharModel> charList = new ArrayList<>();
-
     private int lastPos = -1;
     private int blinkCount = 0;
-
     private boolean isTouched = true;
     private boolean isInactive = false;
-
     private int itemHeight;
-
     private List<Integer> positionList = new ArrayList<>();
-
     private VolxUtils utils;
-
     private FrameLayout rightIndicatorLayout;
-
     private FrameLayout.LayoutParams rightBarParams;
 
     public Volx(Builder builder) {
@@ -112,7 +85,7 @@ public class Volx implements Runnable {
         this.execute();
     }
 
-    public void execute() {
+    private void execute() {
 
         context = parentLayout.getContext();
         utils = new VolxUtils(context);
@@ -152,7 +125,7 @@ public class Volx implements Runnable {
                             positionList.add(counter);
                         }
 
-                    } catch (IllegalAccessException e) {
+                    } catch (IllegalAccessException | StringIndexOutOfBoundsException e) {
                         e.printStackTrace();
                     }
 
@@ -192,7 +165,7 @@ public class Volx implements Runnable {
                 super.onScrolled(recyclerView, dx, dy);
 
                 int posTop = ((LinearLayoutManager) (userRecyclerView.getLayoutManager())).findFirstVisibleItemPosition();
-                middleText.setText("" + allStringList.get(posTop).toUpperCase().charAt(0));
+                middleText.setText(String.valueOf(allStringList.get(posTop).toUpperCase().charAt(0)));
             }
         };
 
@@ -236,7 +209,7 @@ public class Volx implements Runnable {
                             changeModel.setBlink(true);
                             mAdapter.notifyDataSetChanged();
 
-                            ((LinearLayoutManager) (userRecyclerView.getLayoutManager())).scrollToPositionWithOffset(positionList.get(blinkCount).intValue(), 0);
+                            ((LinearLayoutManager) (userRecyclerView.getLayoutManager())).scrollToPositionWithOffset(positionList.get(blinkCount), 0);
                             middleText.setText(changeModel.getCharacter().toString().toUpperCase());
 
                             lastPos = blinkCount;
@@ -263,11 +236,10 @@ public class Volx implements Runnable {
             mRecyclerView.postDelayed(Volx.this, delayMillis);
     }
 
-    public void setViewsVisibility(boolean isShow) {
-
+    private void setViewsVisibility(boolean isShow) {
         if (!isShow) {
             middleText.setVisibility(View.GONE);
-            if (delayMillis < 0)
+            if (delayMillis == NEVER_CLOSE)
                 return;
             rightIndicatorLayout.setVisibility(View.GONE);
             isTouched = false;
@@ -298,7 +270,7 @@ public class Volx implements Runnable {
         //Creating right side layout and adding it to the right side of parent layout
 
         rightBarParams = new FrameLayout.LayoutParams(utils.dpToPx(barWidth), ViewGroup.LayoutParams.MATCH_PARENT);
-        rightBarParams.gravity = Gravity.CENTER | Gravity.RIGHT;
+        rightBarParams.gravity = Gravity.CENTER | Gravity.END;
         rightBarParams.setMargins(utils.dpToPx(2), utils.dpToPx(4), utils.dpToPx(2), utils.dpToPx(4));
 
         rightIndicatorLayout = new FrameLayout(context);
@@ -310,7 +282,7 @@ public class Volx implements Runnable {
         // Adding recycler view into the right side layout
 
         FrameLayout.LayoutParams listParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        listParams.gravity = Gravity.CENTER | Gravity.RIGHT;
+        listParams.gravity = Gravity.CENTER | Gravity.END;
         listParams.setMargins(utils.dpToPx(1), utils.dpToPx(4), utils.dpToPx(1), utils.dpToPx(4));
 
         mRecyclerView = new RecyclerView(context);
@@ -320,11 +292,14 @@ public class Volx implements Runnable {
 
         rightIndicatorLayout.addView(mRecyclerView, listParams);
 
+        // Adding animate layout change to parent layout
+        LayoutTransition lt = new LayoutTransition();
+        lt.disableTransitionType(LayoutTransition.APPEARING);
+        parentLayout.setLayoutTransition(lt);
     }
 
     @Override
     public void run() {
-
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -333,26 +308,15 @@ public class Volx implements Runnable {
                 }
             }
         });
-
     }
 
-    public void setInactive(boolean state) {
-
-        if (scrollListener == null)
-            return;
-
-        isInactive = state;
-        if (state) {
-            setViewsVisibility(false);
-            userRecyclerView.removeOnScrollListener(scrollListener);
-            return;
-        }
-        userRecyclerView.addOnScrollListener(scrollListener);
-
+    public void notifyValueDataChanged() {
+        parentLayout.removeView(rightIndicatorLayout);
+        parentLayout.removeView(middleText);
+        execute();
     }
 
-
-    public void onScreenCreated(int height, ViewTreeObserver.OnGlobalLayoutListener listener) {
+    private void onScreenCreated(int height, ViewTreeObserver.OnGlobalLayoutListener listener) {
         parentLayout.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
 
         rightBarParams.height = (int) (height * barHeightRatio);
@@ -418,13 +382,27 @@ public class Volx implements Runnable {
         return isInactive;
     }
 
+    public void setInactive(boolean state) {
+        if (scrollListener == null)
+            return;
+
+        isInactive = state;
+        if (state) {
+            setViewsVisibility(false);
+            userRecyclerView.removeOnScrollListener(scrollListener);
+            return;
+        }
+        userRecyclerView.addOnScrollListener(scrollListener);
+
+    }
+
     public static class Builder {
 
         private int activeColor = Color.CYAN;
 
         private int backgroundColor = Color.BLACK;
 
-        private int textSize = 0;
+        private int textSize = Volx.FIT_NICELY;
 
         private int textColor = Color.WHITE;
 
