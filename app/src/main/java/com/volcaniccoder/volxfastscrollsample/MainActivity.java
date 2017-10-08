@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
             model.add(userModel);
         }
 
-        parentLayout = (FrameLayout) findViewById(R.id.activity_use);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rcx);
+        parentLayout = findViewById(R.id.activity_use);
+        mRecyclerView = findViewById(R.id.rcx);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);

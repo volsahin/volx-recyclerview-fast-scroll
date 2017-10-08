@@ -1,7 +1,10 @@
 package com.volcaniccoder.volxfastscroll;
 
 import android.graphics.Color;
+import android.support.v4.widget.TextViewCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +18,10 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
 
     private List<VolxCharModel> mDataset;
     private VolxAdapterFeatures mFeatures;
-    private float defaultTextSize;
 
-    public VolxAdapter(List<VolxCharModel> mDataset, VolxUtils utils, VolxAdapterFeatures mFeatures) {
+    public VolxAdapter(List<VolxCharModel> mDataset, VolxAdapterFeatures mFeatures) {
         this.mFeatures = mFeatures;
         this.mDataset = mDataset;
-        this.defaultTextSize = utils.defaultTextSize(mFeatures.getParamsHeight());
     }
 
     @Override
@@ -77,18 +78,19 @@ public class VolxAdapter extends RecyclerView.Adapter<VolxAdapter.ViewHolder> {
                     (ViewGroup.LayoutParams.MATCH_PARENT, mFeatures.getParamsHeight());
             parentParams.setMargins(4, 0, 4, 0);
 
-            itemParent = (LinearLayout) v.findViewById(R.id.item_parent);
+            itemParent = v.findViewById(R.id.item_parent);
             itemParent.setBackgroundColor(Color.TRANSPARENT);
             itemParent.setLayoutParams(parentParams);
 
-            charText = new TextView(v.getContext());
+            charText = new AppCompatTextView(v.getContext());
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams
-                    (ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                    (ViewGroup.LayoutParams.MATCH_PARENT, mFeatures.getParamsHeight());
             charText.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
 
-            if (mFeatures.getTextSize() == Volx.FIT_NICELY)
-                charText.setTextSize(defaultTextSize);
-            else
+            if (mFeatures.getTextSize() == Volx.FIT_NICELY) {
+                TextViewCompat.setAutoSizeTextTypeWithDefaults(charText, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+                TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(charText, 2, 13, 1, TypedValue.COMPLEX_UNIT_SP);
+            } else
                 charText.setTextSize(mFeatures.getTextSize());
 
             charText.setTextColor(mFeatures.getTextColor());

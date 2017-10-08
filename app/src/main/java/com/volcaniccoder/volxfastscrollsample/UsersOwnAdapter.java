@@ -25,7 +25,7 @@ public class UsersOwnAdapter extends RecyclerView.Adapter<UsersOwnAdapter.ViewHo
         TextView txt;
         public ViewHolder(View v) {
             super(v);
-            txt = (TextView) v.findViewById(R.id.txt);
+            txt = v.findViewById(R.id.txt);
         }
     }
 
@@ -40,8 +40,7 @@ public class UsersOwnAdapter extends RecyclerView.Adapter<UsersOwnAdapter.ViewHo
         View v =  LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_main, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        return new ViewHolder(v);
     }
 
     @Override

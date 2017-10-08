@@ -322,7 +322,7 @@ public class Volx implements Runnable {
         rightBarParams.height = (int) (height * barHeightRatio);
         itemHeight = (int) (height * barHeightRatio - utils.dpToPx(16)) / (charList.size());
 
-        mAdapter = new VolxAdapter(charList, utils, new VolxAdapterFeatures(itemHeight, barHeightRatio, barWidth, textSize, textColor, activeColor));
+        mAdapter = new VolxAdapter(charList, new VolxAdapterFeatures(itemHeight, barHeightRatio, barWidth, textSize, textColor, activeColor));
         mRecyclerView.setAdapter(mAdapter);
     }
 
