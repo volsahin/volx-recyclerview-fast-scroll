@@ -128,7 +128,7 @@ Add it in your root build.gradle at the end of repositories:
 ```groovy
 
 	dependencies {
-		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.6'
+		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.7'
 	}
   
 ```
