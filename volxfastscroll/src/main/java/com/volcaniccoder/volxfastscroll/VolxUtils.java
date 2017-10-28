@@ -6,7 +6,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class VolxUtils {
+class VolxUtils {
 
     private Context mContext;
 

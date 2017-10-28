@@ -6,9 +6,8 @@ public class VolxCharModel {
     private boolean isBlink;
     private boolean isGone;
 
-    public VolxCharModel(Character character, boolean isBlink) {
+    public VolxCharModel(Character character) {
         this.character = character;
-        this.isBlink = isBlink;
     }
 
     public Character getCharacter() {

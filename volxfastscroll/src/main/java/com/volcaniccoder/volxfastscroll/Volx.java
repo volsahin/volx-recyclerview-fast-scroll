@@ -4,6 +4,7 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -55,7 +56,8 @@ public class Volx implements Runnable {
     private List<VolxCharModel> charList = new ArrayList<>();
     private int lastPos = -1;
     private int blinkCount = 0;
-    private boolean isTouched = true;
+    private boolean isUserScrolled = true;
+    private boolean isUserTouchedRightBar = false;
     private boolean isInactive = false;
     private int itemHeight;
     private List<Integer> positionList = new ArrayList<>();
@@ -121,7 +123,7 @@ public class Volx implements Runnable {
 
                         if (!charArr.contains(c)) {
                             charArr.add(c);
-                            charList.add(new VolxCharModel(c, false));
+                            charList.add(new VolxCharModel(c));
                             positionList.add(counter);
                         }
 
@@ -153,8 +155,8 @@ public class Volx implements Runnable {
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (newState == SCROLL_STATE_DRAGGING && !isTouched) {
-                    isTouched = true;
+                if (newState == SCROLL_STATE_DRAGGING && !isUserScrolled) {
+                    isUserScrolled = true;
                     rightIndicatorLayout.setVisibility(View.VISIBLE);
                     removeViewsWithDelay();
                 }
@@ -190,6 +192,8 @@ public class Volx implements Runnable {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int y = (int) event.getY();
+
+                isUserTouchedRightBar = true;
 
                 if (rightIndicatorLayout.getVisibility() == View.GONE)
                     setViewsVisibility(true);
@@ -242,7 +246,8 @@ public class Volx implements Runnable {
             if (delayMillis == NEVER_CLOSE)
                 return;
             rightIndicatorLayout.setVisibility(View.GONE);
-            isTouched = false;
+            isUserScrolled = false;
+            isUserTouchedRightBar = false;
             return;
         }
 
@@ -293,9 +298,12 @@ public class Volx implements Runnable {
         rightIndicatorLayout.addView(mRecyclerView, listParams);
 
         // Adding animate layout change to parent layout
-        LayoutTransition lt = new LayoutTransition();
-        lt.disableTransitionType(LayoutTransition.APPEARING);
-        parentLayout.setLayoutTransition(lt);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            LayoutTransition lt = new LayoutTransition();
+            lt.disableTransitionType(LayoutTransition.APPEARING);
+            parentLayout.setLayoutTransition(lt);
+        }
+
     }
 
     @Override
@@ -303,9 +311,11 @@ public class Volx implements Runnable {
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (isUserTouchedRightBar) return;
                 if (rightIndicatorLayout.getVisibility() == VISIBLE) {
                     setViewsVisibility(false);
                 }
+                mRecyclerView.removeCallbacks(this);
             }
         });
     }
@@ -317,7 +327,10 @@ public class Volx implements Runnable {
     }
 
     private void onScreenCreated(int height, ViewTreeObserver.OnGlobalLayoutListener listener) {
-        parentLayout.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+            parentLayout.getViewTreeObserver().removeGlobalOnLayoutListener(listener);
+        else
+            parentLayout.getViewTreeObserver().removeOnGlobalLayoutListener(listener);
 
         rightBarParams.height = (int) (height * barHeightRatio);
         itemHeight = (int) (height * barHeightRatio - utils.dpToPx(16)) / (charList.size());

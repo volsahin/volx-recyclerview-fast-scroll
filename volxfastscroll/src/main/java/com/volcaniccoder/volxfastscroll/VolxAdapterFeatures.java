@@ -1,6 +1,6 @@
 package com.volcaniccoder.volxfastscroll;
 
-public class VolxAdapterFeatures {
+class VolxAdapterFeatures {
 
     private int paramsHeight;
     private float scale;
