@@ -16,13 +16,13 @@ In your adapter file implement IVolxAdapter and return your data as a list of ob
 
 ```java
 
-public class UsersOwnAdapter extends RecyclerView.Adapter<UsersOwnAdapter.ViewHolder> implements IVolxAdapter {
+public class UsersOwnAdapter extends RecyclerView.Adapter<UsersOwnAdapter.ViewHolder> implements IVolxAdapter<UserModel> {
 
     private List<UserModel> mDataset;
 
     @Override
-    public List<Object> getList() {
-        return new ArrayList<Object>(mDataset);
+    public List<UserModel> getList() {
+        return mDataset;
     }
 
 ```
@@ -128,7 +128,7 @@ Add it in your root build.gradle at the end of repositories:
 ```groovy
 
 	dependencies {
-		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.7'
+		compile 'com.github.volsahin:volx-recyclerview-fast-scroll:v1.0.8'
 	}
   
 ```
