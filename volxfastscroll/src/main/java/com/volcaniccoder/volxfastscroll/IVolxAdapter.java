@@ -2,7 +2,7 @@ package com.volcaniccoder.volxfastscroll;
 
 import java.util.List;
 
-public interface IVolxAdapter {
+public interface IVolxAdapter<T> {
 
-    List<Object> getList();
+    List<T> getList();
 }

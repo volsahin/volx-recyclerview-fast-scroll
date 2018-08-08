@@ -11,13 +11,13 @@ import com.volcaniccoder.volxfastscroll.IVolxAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersOwnAdapter extends RecyclerView.Adapter<UsersOwnAdapter.ViewHolder> implements IVolxAdapter {
+public class UsersOwnAdapter extends RecyclerView.Adapter<UsersOwnAdapter.ViewHolder> implements IVolxAdapter<UserModel> {
 
     private List<UserModel> mDataset;
 
     @Override
-    public List<Object> getList() {
-        return new ArrayList<Object>(mDataset);
+    public List<UserModel> getList() {
+        return mDataset;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

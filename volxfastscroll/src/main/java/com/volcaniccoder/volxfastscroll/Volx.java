@@ -1,6 +1,7 @@
 package com.volcaniccoder.volxfastscroll;
 
 import android.animation.LayoutTransition;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -87,6 +88,7 @@ public class Volx implements Runnable {
         this.execute();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void execute() {
 
         context = parentLayout.getContext();
@@ -97,7 +99,7 @@ public class Volx implements Runnable {
             return;
         }
 
-        List<Object> objectList = ((IVolxAdapter) userRecyclerView.getAdapter()).getList();
+        List objectList = ((IVolxAdapter) userRecyclerView.getAdapter()).getList();
 
         if (objectList == null || objectList.isEmpty())
             return;
