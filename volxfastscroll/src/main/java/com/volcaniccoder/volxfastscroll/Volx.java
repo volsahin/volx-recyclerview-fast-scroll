@@ -107,6 +107,11 @@ public class Volx implements Runnable {
         Class foo = objectList.get(0).getClass();
         int counter = -1;
 
+        allStringList.clear();
+        charArr.clear();
+        charList.clear();
+        positionList.clear();
+
         for (Object obj : objectList) {
 
             counter++;
