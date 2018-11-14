@@ -107,11 +107,6 @@ public class Volx implements Runnable {
         Class foo = objectList.get(0).getClass();
         int counter = -1;
 
-        allStringList.clear();
-        charArr.clear();
-        charList.clear();
-        positionList.clear();
-
         for (Object obj : objectList) {
 
             counter++;
@@ -330,7 +325,15 @@ public class Volx implements Runnable {
     public void notifyValueDataChanged() {
         parentLayout.removeView(rightIndicatorLayout);
         parentLayout.removeView(middleText);
+        clearIndexes();
         execute();
+    }
+
+    private void clearIndexes() {
+        allStringList.clear();
+        charArr.clear();
+        charList.clear();
+        positionList.clear();
     }
 
     private void onScreenCreated(int height, ViewTreeObserver.OnGlobalLayoutListener listener) {
