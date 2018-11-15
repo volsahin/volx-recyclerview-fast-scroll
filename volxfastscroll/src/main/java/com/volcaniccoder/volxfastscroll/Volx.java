@@ -325,7 +325,15 @@ public class Volx implements Runnable {
     public void notifyValueDataChanged() {
         parentLayout.removeView(rightIndicatorLayout);
         parentLayout.removeView(middleText);
+        clearIndexes();
         execute();
+    }
+
+    private void clearIndexes() {
+        allStringList.clear();
+        charArr.clear();
+        charList.clear();
+        positionList.clear();
     }
 
     private void onScreenCreated(int height, ViewTreeObserver.OnGlobalLayoutListener listener) {
